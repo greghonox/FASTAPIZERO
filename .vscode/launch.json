@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "module": "uvicorn",
-            "cwd": "${workspaceFolder}/fastapizero",
+            "cwd": "${workspaceFolder}/src",
             "args": [
                 "app:app",
                 "--reload"

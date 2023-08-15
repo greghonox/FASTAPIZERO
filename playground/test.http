@@ -1,0 +1,14 @@
+@server=http://localhost:8000
+
+###
+GET {{server}}/users
+
+###
+POST {{server}}/users
+Content-Type: application/json
+
+{
+    "username": "John Doe",
+    "email": "gregr@1.com",
+    "password": "1234"
+}
