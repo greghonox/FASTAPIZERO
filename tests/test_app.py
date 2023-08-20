@@ -1,15 +1,12 @@
 import pytest
+from src.schemas import UserPublic
 
-
-@pytest.mark.asyncio
-def test_root_user_get(client):
-    response = client.get('/users/')
+def test_read_users(client):
+    response = client.get('/users')
     assert response.status_code == 200
     assert response.json() == {'users': []}
 
-
-@pytest.mark.asyncio
-async def test_create_user(client):
+def test_create_user(client):
     response = client.post(
         '/users/',
         json={
@@ -19,22 +16,15 @@ async def test_create_user(client):
         },
     )
     assert response.status_code == 201
-    assert response.json() == {
-        'username': 'alice',
-        'email': 'alice@example.com',
-    }
+    assert response.json() == {'id': 1, 'username': 'alice', 'email': 'alice@example.com'}
+    
 
+def test_read_users_with_users(client, user):
+    user_schema = UserPublic.model_validate(user).model_dump()
+    response = client.get('/users/')
+    assert response.json() == {'users': [user_schema]}
 
-@pytest.mark.asyncio
-async def test_update_user(client):
-    client.post(
-        '/users/',
-        json={
-            'username': 'alice',
-            'email': 'alice@example.com',
-            'password': 'secret',
-        },
-    )
+def test_update_user(client, user):
     response = client.put(
         '/users/1',
         json={
@@ -44,20 +34,13 @@ async def test_update_user(client):
         },
     )
     assert response.status_code == 200
-    assert response.json() == {'username': 'bob', 'email': 'bob@example.com'}
+    assert response.json() == {
+        'username': 'bob',
+        'email': 'bob@example.com',
+        'id': 1,
+    }
 
-
-@pytest.mark.asyncio
-async def test_delete_user(client):
-    client.post(
-        '/users/',
-        json={
-            'username': 'alice',
-            'email': 'alice@example.com',
-            'password': 'secret',
-        },
-    )
+def test_delete_user(client, user):
     response = client.delete('/users/1')
-
     assert response.status_code == 200
     assert response.json() == {'detail': 'User deleted'}
