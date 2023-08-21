@@ -9,6 +9,17 @@ Content-Type: application/json
 
 {
     "username": "John Doe",
-    "email": "gregr@1.com",
+    "email": "germano@gmail.com",
+    "password": "1234"
+}
+
+
+###
+POST {{server}}/token
+Content-Type: application/x-www-form-urlencoded
+Accept-Content-Type: application/json
+
+{
+    "username": "germano@gmail.com",
     "password": "1234"
 }
