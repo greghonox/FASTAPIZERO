@@ -49,6 +49,10 @@ def update_user(
     user_id: int, user: UserSchema, session: Session, current_user: CurrentUser
 ):
     db_user = session.scalar(select(User).where(User.id == user_id))
+
+    if current_user.id != user_id:
+        raise HTTPException(status_code=400, detail='Forbidden')
+
     if db_user is None:
         raise HTTPException(status_code=404, detail='User not found')
 
