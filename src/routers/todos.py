@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query
@@ -6,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from src.database import get_session
 from src.models import Todo, User
-from src.schemas import ListTodos, TodoPublic, TodoSchema
+from src.schemas import ListTodos, TodoInput, TodoSchema
 from src.security import get_current_user
 
 CurrentUser = Annotated[User, Depends(get_current_user)]
@@ -14,7 +15,7 @@ CurrentUser = Annotated[User, Depends(get_current_user)]
 router = APIRouter(prefix='/todos', tags=['todos'])
 
 
-@router.post('/', response_model=TodoPublic)
+@router.post('/', response_model=TodoInput)
 def create_todo(
     todo: TodoSchema,
     user: CurrentUser,
@@ -25,6 +26,7 @@ def create_todo(
         description=todo.description,
         state=todo.state,
         user_id=user.id,
+        created=datetime.now(),
     )
     session.add(db_todo)
     session.commit()

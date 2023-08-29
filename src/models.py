@@ -1,6 +1,7 @@
+from datetime import datetime
 from enum import Enum
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import DateTime, ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -37,5 +38,5 @@ class Todo(Base):
     description: Mapped[str]
     state: Mapped[TodoState]
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
-
     user: Mapped[User] = relationship(back_populates='todos')
+    created: Mapped[datetime] = mapped_column(DateTime, nullable=False)

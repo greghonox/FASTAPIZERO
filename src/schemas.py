@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel, ConfigDict, EmailStr
 
 from src.models import TodoState
@@ -43,11 +45,15 @@ class TodoSchema(BaseModel):
     state: TodoState
 
 
-class TodoPublic(BaseModel):
+class TodoInput(BaseModel):
     id: int
     title: str
     description: str
     state: TodoState
+
+
+class TodoPublic(TodoInput):
+    created: datetime
 
 
 class ListTodos(BaseModel):

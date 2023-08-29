@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import select
 
 from src.models import Todo, User
@@ -20,6 +22,7 @@ def test_create_todo(session: Session, user: User):
         description='Test Desc',
         state='draft',
         user_id=user.id,
+        created=datetime.now(),
     )
 
     session.add(todo)

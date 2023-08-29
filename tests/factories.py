@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import factory
 import factory.fuzzy
 
@@ -22,3 +24,4 @@ class TodoFactory(factory.Factory):
     description = factory.Faker('text')
     state = factory.fuzzy.FuzzyChoice(TodoState)
     user_id = 1
+    created = datetime.now()
