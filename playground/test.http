@@ -1,7 +1,9 @@
 @server=http://localhost:8000
+@toker=Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJnZXJtYW5vQGdtYWlsLmNvbSIsImV4cCI6MTY5MzI3Mjk4OX0.WcDxrJVGCTAWVkzpYPMsacxQP9tYcWBcyp9MupjVz2Q"
+
 
 ###
-GET {{server}}/users
+GET {{server}}/v1/users
 
 ###
 POST {{server}}/users
@@ -15,7 +17,7 @@ Content-Type: application/json
 
 
 ###
-POST {{server}}/token
+POST {{server}}/auth/token
 Content-Type: application/x-www-form-urlencoded
 Accept-Content-Type: application/json
 

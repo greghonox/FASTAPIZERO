@@ -13,7 +13,7 @@ from src.security import create_access_token, get_current_user, verify_password
 OAuth2Form = Annotated[OAuth2PasswordRequestForm, Depends()]
 Session = Annotated[Session, Depends(get_session)]
 
-router = APIRouter(tags=['token'], prefix='/auth')
+router = APIRouter(tags=['token'])
 
 
 @router.post('/token', response_model=Token)
